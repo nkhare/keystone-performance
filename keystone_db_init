@@ -1,0 +1,7 @@
+CREATE DATABASE keystone;
+CREATE USER 'keystone'@'localhost' IDENTIFIED BY 'keystone';
+CREATE USER 'keystone'@'%' IDENTIFIED BY 'keystone';
+GRANT ALL ON keystone.* TO 'keystone'@'localhost';
+GRANT ALL ON keystone.* TO 'keystone'@'%';
+flush privileges;
+
