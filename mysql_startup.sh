@@ -1,1 +1,1 @@
-/usr/bin/mysqld_safe 
+/usr/bin/mysqld_safe  &
