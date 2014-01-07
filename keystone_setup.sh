@@ -2,6 +2,7 @@
 until mysql -e 'select 1'; do sleep 1; done
 useradd keystone
 openstack-db --init --service keystone -y --rootpw ""
+sleep 20
 keystone-manage pki_setup --keystone-user keystone --keystone-group keystone
 mkdir -p /etc/keystone
 cp -r /opt/keystone/etc/* /etc/keystone/
