@@ -2,7 +2,6 @@ FROM mattdm/fedora
 MAINTAINER Neependra Khare 
 RUN date
 #RUN yum update -y
-#RUN yum groupinstall @Development\ Tools -y --nogpgcheck
 RUN yum install git python-pip vim gcc glibc-devel glibc-headers -y
 RUN mkdir -p /opt
 RUN cd /opt && git clone http://github.com/openstack/keystone.git
@@ -13,10 +12,10 @@ RUn cd /opt/keystone && python setup.py install
 RUN yum install mysql-server screen -y
 RUN mysql_install_db --user=mysql --basedir=/usr/ --ldata=/var/lib/mysql/
 RUN cd /opt/ && git clone https://github.com/nkhare/keystone-performance.git
-#RUN yum install openstack-keystone openstack-utils dnsmasq-utils  -y || date
 RUN yum install openstack-utils -y || date
 RUN chmod a+x /opt/keystone-performance/keystone_setup.sh
 EXPOSE 35357
 EXPOSE 5000
- yum install MySQL-python
-#ENTRYPOINT ["/opt/keystone-performance/keystone_setup.sh"]
+RUN yum install MySQL-python -y
+RUN ip addr
+ENTRYPOINT ["/opt/keystone-performance/keystone_setup.sh"]

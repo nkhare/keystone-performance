@@ -4,7 +4,9 @@ useradd keystone
 openstack-db --init --service keystone -y --rootpw ""
 keystone-manage pki_setup --keystone-user keystone --keystone-group keystone
 mkdir -p /etc/keystone
-#cp /opt/keystone/etc/keystone.conf.sample /etc/keystone/keystone.conf
+cp -r /opt/keystone/etc/* /etc/keystone/
+cp /opt/keystone/etc/keystone.conf.sample /etc/keystone/keystone.conf
+openstack-config --set /etc/keystone/keystone.conf database connection mysql://root:@localhost/keystone
 export IP=$(ip addr | grep inet | grep eth0 | awk -F" " '{print $2}'| sed -e 's/\/.*$//')
 export SERVICE_TOKEN=$(openssl rand -hex 10)
 export SERVICE_ENDPOINT=http://$IP:35357/v2.0
