@@ -1,0 +1,25 @@
+FROM mattdm/fedora
+MAINTAINER Neependra Khare 
+RUN date
+RUN yum install gcc git-core postgresql-libs python-devel libevent-devel openssl-devel -y
+RUN curl -o /tmp/ez_setup.py https://sources.rhodecode.com/setuptools/raw/bootstrap/ez_setup.py 
+RUN /usr/bin/python /tmp/ez_setup.py 
+RUN /usr/bin/easy_install pip 
+RUN rm setuptools-*.tar.gz 
+RUN pip install -i https://pypi.rhodecode.com/ --upgrade pip
+
+RUN cd /opt/ && git clone https://github.com/openstack-dev/pbr.git
+RUN cd /opt/pbr && python setup.py install
+
+RUN cd /opt && git clone https://github.com/drkjam/netaddr.git
+RUN cd /opt/netaddr && python setup.py install
+
+RUN cd /opt/ && git clone https://github.com/stackforge/rally.git 
+RUN cd /opt/rally && python setup.py install
+RUN openstack-rally-manage db recreate
+
+RUN mkdir /etc/rally 
+RUN cp /opt/rally/etc/rally/rally.conf.sample /etc/rally/rally.conf
+
+
+
