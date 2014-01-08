@@ -54,6 +54,7 @@ keystone --token $ADMIN_TOKEN --endpoint http://$IP:35357/v2.0 user-role-add --u
 
 ## Create demo tenant
 keystone --token $ADMIN_TOKEN --endpoint http://$IP:35357/v2.0 tenant-create --name demo
+keystone --token $ADMIN_TOKEN --endpoint http://$IP:35357/v2.0 user-role-add --user admin --role admin --tenant demo
 
 # Test 
 keystone user-list
