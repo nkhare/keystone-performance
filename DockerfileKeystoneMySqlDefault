@@ -1,15 +1,28 @@
+# Get the base image 
 FROM mattdm/fedora
+
 MAINTAINER Neependra Khare <nkhare@redhat.com> 
-#RUN yum update -y
+
+# RUN yum update -y
+# Install reauired packages 
 RUN yum install python-pip gcc glibc-devel glibc-headers python-devel libxml2 libxml2-devel libxslt-devel libxslt -y || ping -c 1 google.com
 RUN yum install vim git mysql-server screen l openstack-utils  install MySQL-python -y || ping -c 1 google.com
+
+# Clone from Keystone repository and install
 RUN mkdir -p /opt
 RUN cd /opt && git clone http://github.com/openstack/keystone.git
 RUN cd /opt/keystone && pip install -r requirements.txt
 RUN cd /opt/keystone && python setup.py install
+
+# Install MySQL db
 RUN mysql_install_db --user=mysql --basedir=/usr/ --ldata=/var/lib/mysql/
+
+# Clone the keystone-performance repo
 RUN cd /opt/ && git clone https://github.com/nkhare/keystone-performance.git
+
+# Expose ports 
 EXPOSE 35357
 EXPOSE 5000
-RUN chmod a+x /opt/keystone-performance/keystone_setup.sh
-ENTRYPOINT ["/opt/keystone-performance/keystone_setup.sh"]
+
+RUN chmod a+x /opt/keystone-performance/*.sh
+#ENTRYPOINT ["/opt/keystone-performance/keystoneSetupMySqlDefaultV2.sh"]
