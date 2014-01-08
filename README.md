@@ -40,6 +40,6 @@ Using Docker images (On Fedora)
     - docker run -i -t Rally  /bin/bash 
     - cd /opt/rally
     - python -i -m rally.osclients 
-    >>> clients = Clients("admin", "test", "demo","http://<IP of keystone container >:5000/v2.0")
+    >>> clients = Clients("admin", "test", "demo","http://\<IP of keystone container \>:5000/v2.0")
     >>> kclient = clients.get_keystone_client()
     >>> kclient.users.list()
