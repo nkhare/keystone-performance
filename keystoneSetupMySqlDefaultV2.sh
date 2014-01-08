@@ -28,6 +28,11 @@ openstack-config --set /etc/keystone/keystone.conf DEFAULT admin_token $SERVICE_
 ## Start Keystone 
 keystone-all --config-file /etc/keystone/keystone.conf &
 
+sleep 5 
+
+## Create Keystone service 
+keystone service-create --name keystone --type identity --description "Keystone Identity Service"
+
 > ~/keystonerc_admin
 echo "export OS_USERNAME=admin" >> ~/keystonerc_admin
 echo "export OS_TENANT_NAME=admin" >> ~/keystonerc_admin
@@ -35,9 +40,6 @@ echo "export OS_PASSWORD=test" >> ~/keystonerc_admin
 echo "export OS_AUTH_URL=http://$IP:35357/v2.0/" >> ~/keystonerc_admin
 echo "export PS1='[\u@\h \W(keystone_admin)]\$ '" >> ~/keystonerc_admin
 source ~/keystonerc_admin
-
-## Create Keystone service 
-keystone service-create --name keystone --type identity --description "Keystone Identity Service"
 
 ## Create Keystone endpoints 
 KEYSTONE_SERVICE_ID=$(keystone service-list | awk '/\ keystone\ / {print $2}')
