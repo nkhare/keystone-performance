@@ -1,0 +1,9 @@
+SERVICE_TOKEN=rally
+SERVICE_PASSWORD=rally
+disable_service rabbit
+enable_service qpid
+RABBIT_PASSWORD=rally
+SYSLOG=yes
+ADMIN_PASSWORD=secret
+DATABASE_PASSWORD=rally
+RECLONE=no
